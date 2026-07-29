@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>littlezhaidi demonlist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #0b0c10; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    
+    .card-has-video {
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(0, 255, 204, 0.12);
+      transition: all 0.3s ease;
+    }
+    .card-has-video:hover {
+      box-shadow: 0 0 22px rgba(196, 180, 255, 1); 
+      transform: translateY(-4px);
+      border-color: rgba(51, 65, 85, 1);
+    }
+    
+    .card-no-video {
+      cursor: default;
+    }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen pb-12">
+
+  <!-- Header Section -->
+  <header class="py-10 text-center bg-slate-900/90 border-b border-slate-800">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide text-transparent bg-clip-text text-violet-300">
+      littlezhaidi demon list
+    </h1>
+    <p class="text-slate-400 mt-2 text-sm md:text-base">個人評分＆關卡心得</p>
+
+    <!-- Stats Bar -->
+    <div class="max-w-4xl mx-auto grid grid-cols-3 gap-4 mt-8 px-4">
+      <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl">
+        <span class="block text-slate-400 text-xs">hardest</span>
+        <span id="stat-max-tier" class="text-2xl font-bold text-amber-300">Tier 0</span>
+      </div>
+      <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl">
+        <span class="block text-slate-400 text-xs">demon count</span>
+        <span id="stat-total" class="text-2xl font-bold text-amber-300">0</span>
+      </div>
+      <div class="bg-slate-800/60 border border-slate-700/50 p-4 rounded-xl">
+        <span class="block text-slate-400 text-xs">average enjoyment</span>
+        <span id="stat-avg-enjoyment" class="text-2xl font-bold text-amber-300">0 / 10</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Controls Section -->
+  <main class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8">
+      <!-- Search Input -->
+      <div class="relative w-full md:w-80">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400"></i>
+        <input type="text" id="search-input" placeholder="搜尋關卡名稱、創作者或 ID..."
+               class="w-full bg-slate-800 text-slate-200 pl-10 pr-4 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-cyan-400 text-sm">
+      </div>
+
+      <!-- Sort Filter -->
+      <div class="flex gap-2 w-full md:w-auto">
+        <select id="sort-select" class="bg-slate-800 text-slate-200 px-4 py-2 rounded-lg border border-slate-700 text-sm focus:outline-none focus:border-cyan-400 w-full">
+          <option value="date-desc" selected>date added (desc)</option>
+          <option value="date-asc">date added (asc)</option>
+          <option value="tier-desc">tier (desc)</option>
+          <option value="tier-asc">tier (asc)</option>
+          <option value="enjoyment-desc">enjoyment (desc)</option>
+          <option value="enjoyment-asc">enjoyment (asc)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cards Container -->
+    <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Dynamic rendering via JS -->
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="mt-16 py-8 bg-slate-900/80 border-t border-slate-800/80 text-slate-400 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    
+      <div class="flex items-center gap-2 text-slate-500">
+        <span>ai generated website</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-300 transition-colors text-sm font-medium">
+          <i class="fa-brands fa-github text-base"></i>
+          <span>github repo</span>
+        </a>
+
+        <a href="https://gdladder.com/profile/35115" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-300 transition-colors text-sm font-medium">
+          <i class="fa-solid fa-id-card text-base text-cyan-400"></i>
+          <span>gddl profile</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
