@@ -55,56 +55,15 @@
 
     async function loadLevels() {
       try {
-        const response = await fetch('levels.json');
-        const rawLevels = await response.json();
-
-        document.getElementById('cards-grid').innerHTML = `
-          <div class="col-span-full text-center text-slate-400 py-12">
-            <i class="fa-solid fa-spinner fa-spin text-3xl mb-3 text-cyan-400"></i>
-            <p>正在同步 GDDL 伺服器資料...</p>
-          </div>`;
-
-        levelsData = await Promise.all(rawLevels.map(async (level) => {
-          try {
-            const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(`https://gdladder.com/api/level/${level.levelId}`)}`)
-            const data = res.ok ? await res.json() : {};
-
-            const meta = data.Meta;
-            const demonType = meta.Difficulty ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
-            const tier = Math.round(data.Rating);
-
-            let rarity = 'none';
-            if (meta.Rarity == 1) rarity = 'feature';
-            else if (meta.Rarity == 2) rarity = 'epic';
-            else if (meta.Rarity == 3) rarity = 'legendary';
-            else if (meta.Rarity == 4) rarity = 'mythic';
-
-            return {
-              ...level,
-              name: meta.Name || `Level ${level.levelId}`,
-              creator: meta.Publisher.name || 'Unknown',
-              demonType: demonType,
-              rarity: rarity,
-              tier: tier
-            };
-          } catch (err) {
-            console.warn(`關卡 ID ${level.levelId} 資料抓取失敗：`, err);
-            return {
-              ...level,
-              name: `Level ${level.levelId}`,
-              creator: 'Unknown',
-              demonType: 'hard',
-              rarity: 'none',
-              tier: 0
-            };
-          }
-        }));
+        const response = await fetch('levels-processed.json');
+        levelsData = await response.json();
 
         updateStats();
         handleFilterAndSort();
       } catch (err) {
-        console.error("無法載入 levels.json：", err);
-        document.getElementById('cards-grid').innerHTML = `<p class="col-span-full text-center text-red-400 py-10">載入資料失敗，請確認網路連線或重新整理網頁。</p>`;
+        console.error("無法載入關卡資料：", err);
+        document.getElementById('cards-grid').innerHTML = 
+          `<p class="col-span-full text-center text-red-400 py-10">載入資料失敗，請重新整理網頁。</p>`;
       }
     }
 
