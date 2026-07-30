@@ -14,6 +14,7 @@ async function buildData() {
 
       const demonType = meta.Difficulty ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
       const tier = Math.round(data.Rating || 0);
+      const rawTier = data.Rating;
 
       let rarity = 'none';
       if (meta.Rarity == 1) rarity = 'feature';
@@ -27,7 +28,8 @@ async function buildData() {
         creator: meta.Publisher?.name || 'Unknown',
         demonType,
         rarity,
-        tier
+        tier,
+        rawTier
       };
     } catch (err) {
       console.warn(` 關卡 ${level.levelId} 抓取失敗，使用預設值`);

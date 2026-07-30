@@ -40,7 +40,7 @@
     function getTierStyle(tier) {
       if (!tier || tier <= 0) return 'color: rgb(148, 163, 184); background-color: rgba(148, 163, 184, 0.15); border-color: rgba(148, 163, 184, 0.3);';
       
-      const rgb = tier <= 20 ? tierColors[tier - 1] : "rgb(131, 38, 7)"; // Tier 21+ 顏色
+      const rgb = tier <= 20 ? tierColors[tier - 1] : "rgb(131, 38, 7)";
       const rgbaBg = rgb.replace('rgb(', 'rgba(').replace(')', ', 0.18)');
       const rgbaBorder = rgb.replace('rgb(', 'rgba(').replace(')', ', 0.4)');
       
@@ -104,7 +104,7 @@
                 ID: ${level.levelId}
               </span>
 
-              <!-- Stacked GD Icon -->
+              <!-- Demon Icon -->
               <div class="absolute top-2 right-2 w-14 h-14 flex items-center justify-center drop-shadow-lg">
                 ${hasRarity ? `
                   <img src="${rarityUrl}" alt="${level.rarity}" class="absolute inset-0 w-full h-full object-contain pointer-events-none scale-110">
@@ -151,7 +151,7 @@
                 <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 text-center">
                   <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Difficulty</span>
                   <span class="text-lg font-black px-2 py-0.5 rounded inline-block mt-0.5 border" style="${getTierStyle(level.tier)}">
-                    Tier ${level.tier}
+                    tier ${level.tier}
                   </span>
                 </div>
                 
@@ -159,7 +159,7 @@
                 <div class="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800 text-center">
                   <span class="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">Enjoyment</span>
                   <span class="text-lg font-black inline-block mt-0.5" style="${getEnjoymentStyle(level.enjoyment)}">
-                    ${Math.round(level.enjoyment)} <span class="text-xs text-slate-500">/ 10</span>
+                    ${Math.round(level.enjoyment)}
                   </span>
                 </div>
               </div>
@@ -190,11 +190,16 @@
       if (!levelsData.length) return;
       document.getElementById('stat-total').innerText = levelsData.length;
 
-      const maxTier = Math.max(...levelsData.map(l => l.tier));
-      document.getElementById('stat-max-tier').innerText = `Tier ${maxTier}`;
+      const hardestLevel = levelsData.reduce((max, level) => {
+        return (level.rawTier > max.rawTier) ? level : max;
+      }, levelsData[0]);
+
+      const maxTierElem = document.getElementById('stat-max-tier');
+      if (hardestLevel) maxTierElem.innerText = hardestLevel.name;
+      
 
       const avgEnjoyment = (levelsData.reduce((acc, l) => acc + l.enjoyment, 0) / levelsData.length).toFixed(1);
-      document.getElementById('stat-avg-enjoyment').innerText = `${avgEnjoyment} / 10`;
+      document.getElementById('stat-avg-enjoyment').innerText = `${avgEnjoyment}`;
     }
 
     function handleFilterAndSort() {
@@ -210,8 +215,8 @@
       filtered.sort((a, b) => {
         if (sortValue === 'date-desc') return new Date(b.date || 0) - new Date(a.date || 0);
         if (sortValue === 'date-asc') return new Date(a.date || 0) - new Date(b.date || 0);
-        if (sortValue === 'tier-desc') return b.tier - a.tier;
-        if (sortValue === 'tier-asc') return a.tier - b.tier;
+        if (sortValue === 'tier-desc') return b.rawTier - a.rawTier;
+        if (sortValue === 'tier-asc') return a.rawTier - b.rawTier;
         if (sortValue === 'enjoyment-desc') return b.enjoyment - a.enjoyment;
         if (sortValue === 'enjoyment-asc') return a.enjoyment - b.enjoyment;
       });

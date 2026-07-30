@@ -1,0 +1,21 @@
+{
+  "name": "littlezhaidi demon list",
+  "short_name": "gddp",
+  "display": "standalone",
+  "description": "個人評分＆關卡心得",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

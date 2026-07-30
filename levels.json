@@ -609,5 +609,20 @@
     "attempts": 7708,
     "date": "2026-07-09",
     "videoUrl": "https://youtu.be/ZsEw0lc38Qw"
+  },
+  {
+    "levelId": 145098853,
+    "enjoyment": 8,
+    "date": "2026-07-30"
+  },
+  {
+    "levelId": 127947821,
+    "enjoyment": 4,
+    "date": "2026-07-30"
+  },
+  {
+    "levelId": 88494611,
+    "enjoyment": 8,
+    "date": "2026-07-30"
   }
 ]
