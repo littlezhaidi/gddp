@@ -26,7 +26,7 @@
     "attempts": 10285,
     "enjoyment": 9,
     "review": "time spent: ~15hr\nTechnical強烈推薦的關卡，果不其然他眼光很好\n打的有點出乎我意料的快，突然好煩惱接下來要打哪關\n死過哪裡我沒仔細去記，因為我把心力花在享受關卡上面\n但印象中有這些：\n99, 96*3, 92, 88, 86, 83*2",
-    "date": "2026-07-09",
+    "date": "2026-07-03",
     "videoUrl": "https://youtu.be/lzh0Z2P4ebI"
   },
   {
@@ -624,5 +624,15 @@
     "levelId": 88494611,
     "enjoyment": 8,
     "date": "2026-07-30"
+  },
+  {
+    "levelId": 52755435,
+    "enjoyment": 5,
+    "date": "2026-07-31"
+  },
+  {
+    "levelId": 124785316,
+    "enjoyment": 7,
+    "date": "2026-07-31"
   }
 ]

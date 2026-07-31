@@ -6,27 +6,23 @@
   <title>littlezhaidi demonlist</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="shortcut icon" href="assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />
   <style>
     body { background-color: #0b0c10; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    .card-has-video {
+    .card {
       cursor: pointer;
       box-shadow: 0 0 12px rgba(138, 1, 148, 0.33);
       transition: all 0.3s ease;
     }
-    .card-has-video:hover {
+    .card:hover {
       box-shadow: 0 0 22px rgba(196, 180, 255, 1); 
       transform: translateY(-4px);
       border-color: rgba(51, 65, 85, 1);
-    }
-    
-    .card-no-video {
-      cursor: default;
     }
   </style>
 </head>
@@ -34,29 +30,29 @@
 
 <!-- Header Section -->
 <header class="relative py-12 text-center border-b border-slate-800 bg-cover bg-center overflow-hidden" 
-        style="background-image: url('banner.png');">
+        style="background-image: url('assets/banner.png');">
   
   <div class="absolute inset-0 bg-slate-950/75"></div>
 
   <div class="relative z-10">
-    <h1 class="text-4xl md:text-6xl font-extrabold tracking-wide text-transparent bg-clip-text text-violet-300 drop-shadow-md">
+    <h1 class="text-3xl md:text-6xl font-extrabold tracking-wide text-transparent bg-clip-text text-violet-300 drop-shadow-md">
       littlezhaidi demon list
     </h1>
-    <p class="text-slate-300 mt-2 text-sm md:text-base font-medium drop-shadow">個人評分＆關卡心得</p>
+    <p class="text-slate-300 mt-6 text-sm md:text-base font-medium drop-shadow">個人評分＆關卡心得</p>
 
     <!-- Stats Bar -->
-    <div class="max-w-4xl mx-auto grid grid-cols-3 gap-4 mt-8 px-4">
+    <div class="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8 px-4">
       <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
         <span class="block text-slate-400 text-xs">hardest</span>
-        <span id="stat-max-tier" class="text-base md:text-lg font-bold text-amber-300 block truncate mt-1" title="">-</span>
+        <span id="stat-max-tier" class="text-base md:text-xl font-bold text-amber-300 block truncate mt-1" title="">-</span>
       </div>
       <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
         <span class="block text-slate-400 text-xs">demon count</span>
-        <span id="stat-total" class="text-2xl font-bold text-amber-300">0</span>
+        <span id="stat-total" class="text-lg md:text-2xl font-bold text-amber-300">0</span>
       </div>
       <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
         <span class="block text-slate-400 text-xs">average enjoyment</span>
-        <span id="stat-avg-enjoyment" class="text-2xl font-bold text-amber-300">0</span>
+        <span id="stat-avg-enjoyment" class="text-lg md:text-2xl font-bold text-amber-300">0</span>
       </div>
     </div>
   </div>
@@ -64,7 +60,7 @@
 </header>
 
   <!-- Controls Section -->
-  <main class="max-w-7xl mx-auto mt-8">
+  <main class="max-w-7xl mx-auto mt-8 px-4">
     <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-8">
       <!-- Search Input -->
       <div class="relative w-full md:w-80">

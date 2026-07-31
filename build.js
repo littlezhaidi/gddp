@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 async function buildData() {
-  console.log(' 開始打包 GDDL 關卡資料...');
+  console.log('開始打包 GDDL 關卡資料...');
   
   const rawData = fs.readFileSync('./levels.json', 'utf-8');
   const levels = JSON.parse(rawData);
@@ -32,7 +32,7 @@ async function buildData() {
         rawTier
       };
     } catch (err) {
-      console.warn(` 關卡 ${level.levelId} 抓取失敗，使用預設值`);
+      console.warn(`關卡 ${level.levelId} 抓取失敗，使用預設值`);
       return {
         ...level,
         name: `Level ${level.levelId}`,
