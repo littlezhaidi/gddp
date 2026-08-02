@@ -18,8 +18,11 @@
   },
   {
     "levelId": 124628749,
+    "enjoyment": 10,
+    "review": "帥炸了，gp很舒服沒有雷點，特效也不擋路\nlegendary worthy，很推薦這關",
+    "attempts": 154,
     "date": "2026-07-29",
-    "enjoyment": 10
+    "videoUrl": "https://youtu.be/5gAXvBdnyVo"
   },
   {
     "levelId": 127135884,
@@ -504,7 +507,7 @@
     "review": "眾所周知，幾何衝刺是一款音樂串流平台（X\nnexus之前好像發過這關，除了有點難sightread之外還算推薦",
     "attempts": 162,
     "date": "2026-07-21",
-    "videoUrl": " https://youtu.be/valTd1O2skc"
+    "videoUrl": "https://youtu.be/valTd1O2skc"
   },
   {
     "levelId": 61618507,
@@ -613,26 +616,49 @@
   {
     "levelId": 145098853,
     "enjoyment": 8,
-    "date": "2026-07-30"
+    "review": "wave段很好玩，需要背板\n裝飾有點無聊但這是好事，練習起來比較輕鬆\n其實是個滿新的關",
+    "attempts": 454,
+    "date": "2026-07-30",
+    "videoUrl": "https://youtu.be/L5jOR-Efe8w"
   },
   {
     "levelId": 127947821,
     "enjoyment": 4,
-    "date": "2026-07-30"
+    "review": "瞎眼timing關，gp感覺像是來坑人的，非常不舒服\n但其實他的block design滿強的",
+    "attempts": 140,
+    "date": "2026-07-30",
+    "videoUrl": "https://youtu.be/e05J9N6Lij8"
   },
   {
     "levelId": 88494611,
     "enjoyment": 8,
-    "date": "2026-07-30"
+    "review": "free demon, 音樂很炸\n跑一次練習你也能fluke from 0%",
+    "attempts": 18,
+    "date": "2026-07-30",
+    "videoUrl": "https://youtu.be/umjEn15B2Zs"
   },
   {
     "levelId": 52755435,
     "enjoyment": 5,
-    "date": "2026-07-31"
+    "review": "glow關但沒什麼特點，gp一堆地雷很不舒服\n但整體來說是個很簡單的關卡，而且音樂很好聽",
+    "attempts": 183,
+    "date": "2026-07-31",
+    "videoUrl": "https://youtu.be/7wzV84yaMjc"
   },
   {
     "levelId": 124785316,
     "enjoyment": 7,
-    "date": "2026-07-31"
+    "review": "忘記換曲了LOL\nship關但是非常簡單，裝飾有點眼花，總之是free demon\n建議遊玩隔壁的golden hour",
+    "attempts": 97,
+    "date": "2026-07-31",
+    "videoUrl": "https://youtu.be/46r_GXJpqUM"
+  },
+  {
+    "levelId": 133477648,
+    "enjoyment": 10,
+    "review": "震撼effect layout界的大作，2.2入坑寶寶必玩關卡（X\n很早就想打這關了，只是前一段時間一直出新mythic ezd\n所以這麼晚才打\n總之神作無需多言",
+    "attempts": 53,
+    "date": "2026-08-01",
+    "videoUrl": "https://youtu.be/btYnGQdfQOE"
   }
 ]

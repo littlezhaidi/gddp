@@ -1,4 +1,6 @@
 let levelsData = [];
+//let currentSortKey = 'date';
+let currentSortOrder = true;
 
 const tierColors = [
   "rgb(221, 223, 238)", 
@@ -87,7 +89,7 @@ function updateStats() {
     return (level.rawTier > max.rawTier) ? level : max;
   }, levelsData[0]);
 
-  const maxTierElem = document.getElementById('stat-max-tier');
+  const maxTierElem = document.getElementById('stat-hardest');
   if (hardestLevel) maxTierElem.innerText = hardestLevel.name;
       
 
@@ -97,7 +99,7 @@ function updateStats() {
 
 function handleFilterAndSort() {
   const searchTerm = document.getElementById('search-input').value.toLowerCase();
-  const sortValue = document.getElementById('sort-select').value;
+  const sortValue = document.getElementById('sort-key-select').value;
 
   let filtered = levelsData.filter(level =>
     level.name.toLowerCase().includes(searchTerm) ||
@@ -106,13 +108,26 @@ function handleFilterAndSort() {
   );
 
   filtered.sort((a, b) => {
-    if (sortValue === 'date-desc') return new Date(b.date || 0) - new Date(a.date || 0);
-    if (sortValue === 'date-asc') return new Date(a.date || 0) - new Date(b.date || 0);
-    if (sortValue === 'tier-desc') return b.rawTier - a.rawTier;
-    if (sortValue === 'tier-asc') return a.rawTier - b.rawTier;
-    if (sortValue === 'enjoyment-desc') return b.enjoyment - a.enjoyment;
-    if (sortValue === 'enjoyment-asc') return a.enjoyment - b.enjoyment;
-  });
+      let primaryDiff = 0;
+
+      if (sortValue === 'date') {
+        const dateA = new Date(a.date || 0);
+        const dateB = new Date(b.date || 0);
+        primaryDiff = currentSortOrder ? dateB - dateA : dateA - dateB;
+      } 
+      else if (sortValue === 'enjoyment') {
+        primaryDiff = currentSortOrder ? (b.enjoyment - a.enjoyment) : (a.enjoyment - b.enjoyment);
+      } 
+      else if (sortValue === 'tier') {
+        primaryDiff = currentSortOrder ? (b.rawTier - a.rawTier) : (a.rawTier - b.rawTier);
+      }
+
+      if (primaryDiff === 0 && sortValue !== 'tier') {
+        return (b.rawTier - a.rawTier);
+      }
+
+      return primaryDiff;
+    });
 
   renderCards(filtered);
 }
@@ -143,6 +158,10 @@ function renderCards(data) {
                class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/50"></div>
           
+          <span class="absolute top-3 left-3 bg-slate-950/70 border border-slate-700/60 text-slate-300 text-[11px] font-mono px-2 py-0.5 rounded backdrop-blur-md">
+            #${level.rank}
+          </span>
+
           <!-- Demon Icon -->
           <div class="absolute top-2 right-2 w-14 h-14 flex items-center justify-center drop-shadow-lg">
             ${hasRarity ? `
@@ -297,4 +316,26 @@ async function initDetailPage(levelId) {
 }
 
 document.getElementById('search-input').addEventListener('input', handleFilterAndSort);
-document.getElementById('sort-select').addEventListener('change', handleFilterAndSort);
+document.getElementById('sort-key-select').addEventListener('change', handleFilterAndSort);
+
+const sortOrderBtn = document.getElementById('sort-order-btn');
+if (sortOrderBtn) {
+  sortOrderBtn.addEventListener('click', () => {
+    currentSortOrder = !currentSortOrder;
+
+    const icon = document.getElementById('sort-order-icon');
+    const text = document.getElementById('sort-order-text');
+
+    if (icon && text) {
+      if (currentSortOrder) {
+        icon.className = 'fa-solid fa-arrow-down-wide-short';
+        text.innerText = '降序';
+      } else {
+        icon.className = 'fa-solid fa-arrow-up-wide-short';
+        text.innerText = '升序';
+      }
+    }
+
+    handleFilterAndSort();
+  });
+}

@@ -32,7 +32,7 @@ async function buildData() {
         rawTier
       };
     } catch (err) {
-      console.warn(`關卡 ${level.levelId} 抓取失敗，使用預設值`);
+      console.warn(`關卡 ${level.levelId} 抓取失敗：`, err);
       return {
         ...level,
         name: `Level ${level.levelId}`,
@@ -44,8 +44,23 @@ async function buildData() {
     }
   }));
 
-  fs.writeFileSync('./levels-processed.json', JSON.stringify(processedLevels, null, 2));
-  console.log('已生成 levels-processed.json');
+  const sortedByTier = [...processedLevels].sort((a, b) => {
+    if (b.rawTier !== a.rawTier) return b.rawTier - a.rawTier;
+    return (b.enjoyment || 0) - (a.enjoyment || 0);
+  });
+
+  const rankMap = new Map();
+  sortedByTier.forEach((level, index) => {
+    rankMap.set(level.levelId, index + 1);
+  });
+
+  const finalLevels = processedLevels.map(level => ({
+    ...level,
+    rank: rankMap.get(level.levelId) || 0
+  }));
+
+  fs.writeFileSync('./levels-processed.json', JSON.stringify(finalLevels, null, 2));
+  console.log('已成功生成 levels-processed.json！');
 }
 
 buildData();
