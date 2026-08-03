@@ -1,5 +1,4 @@
 let levelsData = [];
-//let currentSortKey = 'date';
 let currentSortOrder = true;
 
 const tierColors = [
@@ -89,9 +88,19 @@ function updateStats() {
     return (level.rawTier > max.rawTier) ? level : max;
   }, levelsData[0]);
 
-  const maxTierElem = document.getElementById('stat-hardest');
-  if (hardestLevel) maxTierElem.innerText = hardestLevel.name;
-      
+  const hardestElem = document.getElementById('stat-hardest');
+  if (hardestLevel) {
+    hardestElem.innerHTML = `<a href="/detail.html?id=${hardestLevel.levelId}">${hardestLevel.name}</a>`
+  }
+  
+  const recentLevel = levelsData.reduce((max, level) => {
+    return (level.date > max.date) ? level : max;
+  }, levelsData[0]);
+
+  const recentElem = document.getElementById('recent-level');
+  if (recentLevel) {
+    recentElem.innerHTML = `<a href="/changelog.html">${recentLevel.name}</a>`
+  }
 
   const avgEnjoyment = (levelsData.reduce((acc, l) => acc + l.enjoyment, 0) / levelsData.length).toFixed(1);
   document.getElementById('stat-avg-enjoyment').innerText = `${avgEnjoyment}`;

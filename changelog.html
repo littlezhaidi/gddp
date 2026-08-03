@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog - littlezhaidi demonlist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="shortcut icon" href="assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-12">
+
+  <!-- Home Page Button -->
+  <div class="max-w-4xl mx-auto px-4 pt-6 md:pt-8">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
+      <i class="fa-solid fa-arrow-left"></i> 返回關卡列表
+    </a>
+  </div>
+
+  <!-- Title -->
+  <main class="max-w-4xl mx-auto px-4 mt-6 space-y-6">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide flex items-center gap-3">
+          <i class="fa-solid fa-clock-rotate-left text-violet-300"></i> 更新日誌
+        </h1>
+        <p class="text-slate-400 text-xs md:text-sm mt-1">＊排名資料來自GDDL</p>
+      </div>
+    </div>
+    <!-- Changelog Container -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+      <div id="changelog-container" class="relative border-l-2 border-slate-800 ml-2 md:ml-4 pl-6 md:pl-8 space-y-8">
+        <!-- Dynamic rendering via JS -->
+      </div>
+    </div>
+  </main>
+  <!-- Footer Section -->
+  <footer class="mt-16 py-8 bg-slate-900/80 border-t border-slate-800/80 text-slate-400 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    
+      <div class="flex items-center gap-2 text-slate-500">
+        <span>assets from GDDL & level thumbnails mod</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/littlezhaidi/gddp" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-100 transition-colors text-sm font-medium">
+          <i class="fa-brands fa-github text-base"></i>
+          <span>github repo</span>
+        </a>
+
+        <a href="https://gdladder.com/profile/35115" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-300 transition-colors text-sm font-medium">
+          <i class="fa-solid fa-id-card text-base text-cyan-400"></i>
+          <span>GDDL profile</span>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UC_6IdaITcomx1Ziy8LYLs1g/"
+          target="_blank"
+          rel="noopener noreferrer" 
+          class="flex items-center gap-2 hover:text-rose-500 transition-colors text-sm font-medium">
+          <i class="fa-brands fa-youtube"></i>
+          <span>youtube channel</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+<script>
+    async function renderChangelog() {
+      const container = document.getElementById('changelog-container');
+      try {
+        const res = await fetch('changelogs.json');
+        if (!res.ok) throw new Error();
+        const logs = await res.json();
+
+        if (logs.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 text-sm">目前尚無通關紀錄。</p>`;
+          return;
+        }
+
+        container.innerHTML = logs.map((log, index) => {
+          const isLatest = index === 0;
+
+          const textHtml = `
+            <a href="detail.html?id=${log.targetId}" class="font-black text-yellow-500 hover:underline transition-colors">${log.targetName}</a>
+            was placed at <span class="font-bold text-violet-400">#${log.rank}</span>` +
+            (log.aboveName ? `, above <a href="detail.html?id=${log.aboveId}" class="font-semibold text-violet-200 hover:underline transition-colors">${log.aboveName}</a>` : '') +
+            (log.belowName ? ` and below <a href="detail.html?id=${log.belowId}" class="font-semibold text-violet-200 hover:underline transition-colors">${log.belowName}</a>` : '') +
+            `.`;
+
+          return `
+            <div class="relative group">
+              <!-- 時間軸圓點 -->
+              <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full ${isLatest ? 'bg-violet-500 ring-2 ring-violet-500/50 scale-110' : 'bg-slate-700'} border-4 border-slate-900 transition-all"></div>
+              
+              <!-- 通關日期與標籤 -->
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="text-xs font-mono font-bold ${isLatest ? 'text-violet-300 bg-violet-500/10 border-violet-500/20' : 'text-slate-400 bg-slate-800 border-slate-700'} border px-2.5 py-0.5 rounded-md">
+                  ${log.date}
+                </span>
+              </div>
+
+              <!-- 卡片內文 -->
+              <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-4">
+                <p class="text-sm md:text-base text-slate-200 leading-relaxed">${textHtml}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (e) {
+        container.innerHTML = `<p class="text-slate-500 text-sm">尚未建立更新日誌資料。</p>`;
+      }
+    }
+
+    renderChangelog();
+  </script>
+
+</body>
+</html>
