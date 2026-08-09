@@ -1,18 +1,7 @@
 const fs = require('fs');
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function buildData() {
   console.log('開始打包 GDDL 關卡資料...');
-
-  let oldLevelsMap = new Map();
-  if (fs.existsSync('./levels-processed.json')) {
-    try {
-      const oldData = JSON.parse(fs.readFileSync('./levels-processed.json', 'utf-8'));
-      oldData.forEach(l => oldLevelsMap.set(l.levelId, l));
-    } catch (e) {
-      console.warn('無法讀取舊資料，將視為首次建置。');
-    }
-  }
   
   const rawData = fs.readFileSync('assets/levels.json', 'utf-8');
   const levels = JSON.parse(rawData);
@@ -28,7 +17,7 @@ async function buildData() {
       const data = res.ok ? await res.json() : {};
       const meta = data.Meta || {};
 
-      const demonType = meta.Difficulty ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
+      const demonType = (meta.Difficulty && meta.Difficulty !== 'Official') ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
       const tier = Math.round(data.Rating || 0);
       const rawTier = data.Rating || 0;
 
@@ -60,7 +49,6 @@ async function buildData() {
       });
     }
 
-    await sleep(200);
   }
 
   const sortedByTier = [...processedLevels].sort((a, b) => {
@@ -78,22 +66,14 @@ async function buildData() {
     rank: rankMap.get(level.levelId) || 0
   }));
 
-  let existingLogs = [];
-  if (fs.existsSync('./changelogs.json')) {
-    try { existingLogs = JSON.parse(fs.readFileSync('./changelogs.json', 'utf-8')); } catch (e) {}
-  }
-
-  const loggedLevelIds = new Set(existingLogs.map(log => log.targetId));
-  const newLevels = finalLevels.filter(l => !loggedLevelIds.has(l.levelId));
-
-  if (newLevels.length > 0) {
+  if (finalLevels.length > 0) {
       const parseDate = (dateStr) => {
         if (!dateStr || dateStr === '未知日期') return 0;
         const t = new Date(dateStr).getTime();
         return isNaN(t) ? 0 : t;
       };
     
-      newLevels.sort((a, b) => {
+      finalLevels.sort((a, b) => {
         const timeA = parseDate(a.date);
         const timeB = parseDate(b.date);
       
@@ -104,10 +84,10 @@ async function buildData() {
       });
 
 
-    let currentBoard = finalLevels.filter(l => loggedLevelIds.has(l.levelId));
+    let currentBoard = [];
     const generatedLogs = [];
 
-    for (const level of newLevels) {
+    for (const level of finalLevels) {
 
       currentBoard.push(level);
 
@@ -134,7 +114,7 @@ async function buildData() {
       });
     }
 
-    const finalLogs = [...generatedLogs.reverse(), ...existingLogs];
+    const finalLogs = [...generatedLogs.reverse()];
 
     fs.writeFileSync('./changelogs.json', JSON.stringify(finalLogs, null, 2));
     console.log(`已生成 ${generatedLogs.length} 筆更新日誌`);

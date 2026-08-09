@@ -38,6 +38,12 @@ const enjoymentColors = [
   "rgb(87, 187, 138)"   
 ];
 
+const SPECIAL_THUMB_IDS = {
+  1: 14, // clubstep
+  2: 18, // toe2
+  3: 20  // deadlocked
+};
+
 function getTierStyle(tier) {
   if (!tier || tier <= 0) return 'color: rgb(148, 163, 184); background-color: rgba(148, 163, 184, 0.15); border-color: rgba(148, 163, 184, 0.3);';
   
@@ -54,6 +60,10 @@ function getEnjoymentStyle(score) {
   return `color: ${rgb};`;
 }
 
+function getThumbUrl(levelId) {
+  const thumbId = SPECIAL_THUMB_IDS[levelId] ? SPECIAL_THUMB_IDS[levelId] : levelId;
+  return `https://levelthumbs.prevter.me/thumbnail/${thumbId}/high`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -94,12 +104,14 @@ function updateStats() {
   }
   
   const recentLevel = levelsData.reduce((max, level) => {
-    return (level.date > max.date) ? level : max;
+    const dateA = new Date(max.date || 0);
+    const dateB = new Date(level.date || 0);
+    return (dateA - dateB) ? level : max;
   }, levelsData[0]);
 
   const recentElem = document.getElementById('recent-level');
   if (recentLevel) {
-    recentElem.innerHTML = `<a href="/changelog.html">${recentLevel.name}</a>`
+    recentElem.innerHTML = `<a href="/detail.html?id=${recentLevel.levelId}">${recentLevel.name}</a>`
   }
 
   const avgEnjoyment = (levelsData.reduce((acc, l) => acc + l.enjoyment, 0) / levelsData.length).toFixed(1);
@@ -154,7 +166,6 @@ function renderCards(data) {
     const demonLogoUrl = `https://gdladder.com/images/demon_logos/${level.demonType}_128.webp`;
     const hasRarity = level.rarity && level.rarity !== 'none';
     const rarityUrl = hasRarity ? `https://gdladder.com/images/rarity/${level.rarity}_128.webp` : '';
-    const thumbnailUrl = `https://levelthumbs.prevter.me/thumbnail/${level.levelId}/high`;
     const hasVideo = level.videoUrl && level.videoUrl.trim() !== '';
     
     const cardHTML = `
@@ -162,7 +173,7 @@ function renderCards(data) {
         
         <!-- Top Banner -->
         <div class="relative w-full h-40 bg-slate-950 overflow-hidden">
-          <img src="${thumbnailUrl}" 
+          <img src="${getThumbUrl(level.levelId)}" 
                alt="${level.name}" 
                class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105">
           <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/50"></div>
@@ -280,7 +291,7 @@ async function initDetailPage(levelId) {
           </div>
         ` : `
           <img 
-            src="${`https://levelthumbs.prevter.me/thumbnail/${level.levelId}/high`}"
+            src="${getThumbUrl(level.levelId)}"
             alt="${level.name}">
           </img>
           <p class="text-slate-500 text-sm italic">此關卡無通關影片</p>

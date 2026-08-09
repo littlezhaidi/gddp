@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>數據統計 - littlezhaidi demonlist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="shortcut icon" href="assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-12">
+
+  <!-- Home Page Button -->
+  <div class="max-w-6xl mx-auto px-4 pt-6 md:pt-8">
+    <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
+      <i class="fa-solid fa-arrow-left"></i> 返回關卡列表
+    </a>
+  </div>
+
+  <!-- Title -->
+  <main class="max-w-6xl mx-auto px-4 mt-6 space-y-6">
+    
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex justify-between items-center">
+      <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-wide flex items-center gap-3">
+        <i class="fa-solid fa-chart-line text-violet-300"></i> 數據統計
+      </h1>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
+          <span class="block text-slate-400 text-xs">hardest</span>
+          <span id="stat-hardest" class="text-base md:text-xl font-bold text-amber-300 block truncate mt-1 hover:underline">-</span>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
+          <span class="block text-slate-400 text-xs">demon count</span>
+          <span id="stat-total" class="text-lg md:text-2xl font-bold text-amber-300">0</span>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
+          <span class="block text-slate-400 text-xs">total attempts</span>
+          <span id="total-attempts" class="text-base md:text-xl font-bold text-amber-300 block truncate mt-1">-</span>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-700/60 p-4 rounded-xl backdrop-blur-md">
+          <span class="block text-slate-400 text-xs">average enjoyment</span>
+          <span id="stat-avg-enjoyment" class="text-lg md:text-2xl font-bold text-amber-300">0</span>
+        </div>
+      </div>
+      
+    </div>
+  
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+      <section class="bg-slate-900 bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <h2 class="text-2xl font-black text-white mb-6 tracking-wide flex items-center gap-2.5">
+          <span>Difficulty spread</span>
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <tbody id="difficulty-table-body">
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bg-slate-900 bg-cardBg p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <h2 class="text-2xl font-black text-white mb-6 tracking-wide flex items-center gap-2.5">
+          <span>Enjoyment spread</span>
+        </h2>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <tbody id="enjoyment-table-body">
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="mt-16 py-8 bg-slate-900/80 border-t border-slate-800/80 text-slate-400 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+    
+      <div class="flex items-center gap-2 text-slate-500">
+        <span>assets from GDDL & level thumbnails mod</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/littlezhaidi/gddp" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-100 transition-colors text-sm font-medium">
+          <i class="fa-brands fa-github text-base"></i>
+          <span>github repo</span>
+        </a>
+
+        <a href="https://gdladder.com/profile/35115" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="flex items-center gap-2 hover:text-violet-300 transition-colors text-sm font-medium">
+          <i class="fa-solid fa-id-card text-base text-cyan-400"></i>
+          <span>GDDL profile</span>
+        </a>
+
+        <a href="https://www.youtube.com/channel/UC_6IdaITcomx1Ziy8LYLs1g/"
+          target="_blank"
+          rel="noopener noreferrer" 
+          class="flex items-center gap-2 hover:text-rose-500 transition-colors text-sm font-medium">
+          <i class="fa-brands fa-youtube"></i>
+          <span>youtube channel</span>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    const tierColors = [
+      "rgb(221, 223, 238)", "rgb(213, 211, 233)", "rgb(211, 203, 231)", "rgb(211, 195, 228)", 
+      "rgb(212, 187, 226)", "rgb(213, 176, 222)", "rgb(219, 167, 220)", "rgb(219, 159, 209)", 
+      "rgb(217, 145, 193)", "rgb(218, 134, 176)", "rgb(219, 118, 152)", "rgb(220, 106, 125)",
+      "rgb(221, 90, 90)",  "rgb(220, 81, 76)",  "rgb(218, 73, 62)",  "rgb(218, 69, 52)",  
+      "rgb(217, 62, 38)",  "rgb(220, 63, 35)",  "rgb(192, 58, 26)",  "rgb(178, 52, 21)"   
+    ];
+
+    const enjoymentColors = [
+      "rgb(230, 124, 115)", "rgb(237, 149, 115)", "rgb(243, 174, 114)", "rgb(248, 198, 111)",
+      "rgb(252, 222, 107)", "rgb(255, 246, 102)", "rgb(224, 234, 113)", "rgb(193, 223, 122)",
+      "rgb(160, 211, 129)", "rgb(126, 199, 134)", "rgb(87, 187, 138)"   
+    ];
+
+    async function loadStats() {
+      try {
+        const res = await fetch('levels-processed.json');
+        if (!res.ok) throw new Error('無法載入關卡資料');
+        const levels = await res.json();
+
+        renderEnjoymentSpread(levels);
+        renderDifficultySpread(levels);
+        renderOverview(levels);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderEnjoymentSpread(levels) {
+      const counts = Array(11).fill(0);
+
+      levels.forEach(l => {
+        const score = Math.round(l.enjoyment || 0);
+        if (score >= 0 && score <= 10) {
+          counts[score]++;
+        }
+      });
+
+      const maxCount = Math.max(...counts, 1);
+      const tbody = document.getElementById('enjoyment-table-body');
+      tbody.innerHTML = '';
+
+      for (let i = 0; i <= 10; i++) {
+        const count = counts[i];
+
+        const widthPct = count > 0 ? Math.max((count / maxCount) * 100, 2) : 0;
+        const color = enjoymentColors[i] || enjoymentColors[enjoymentColors.length - 1];
+
+        const tr = document.createElement('tr');
+        tr.className = "h-6";
+        tr.innerHTML = `
+          <!-- Y軸 標籤 -->
+          <td class="w-8 text-right pr-3 font-mono text-slate-300 border-r border-slate-600/80 select-none">
+            ${i}
+          </td>
+          <!-- 數量 -->
+          <td class="w-12 text-right pr-3 pl-3 font-mono text-xs font-bold text-slate-200 select-none">
+            ${count}
+          </td>
+          <!-- 長條圖 -->
+          <td class="py-1 pl-1 w-full">
+            <div class="h-5 rounded-md transition-all duration-500 ease-out" 
+                 style="width: ${widthPct}%; background-color: ${color};">
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+
+    function renderDifficultySpread(levels) {
+      let maxTier = 0;
+      levels.forEach(l => {
+        const t = Math.round(l.tier || l.rawTier || 0);
+        if (t > maxTier) maxTier = t;
+      });
+    
+      if (maxTier === 0) return; 
+    
+      const counts = Array(maxTier + 1).fill(0);
+      levels.forEach(l => {
+        const tier = Math.round(l.tier || l.rawTier || 0);
+        if (tier >= 1) {
+          counts[tier]++;
+        }
+      });
+    
+      const maxCount = Math.max(...counts, 1);
+      const tbody = document.getElementById('difficulty-table-body');
+      tbody.innerHTML = '';
+    
+      for (let i = 1; i <= maxTier; i++) {
+        const count = counts[i];
+        if (count === 0) continue;
+      
+        const widthPct = Math.max((count / maxCount) * 100, 2);
+      
+        const colorIndex = Math.min(i - 1, tierColors.length - 1);
+        const color = tierColors[colorIndex];
+      
+        const tr = document.createElement('tr');
+        tr.className = "h-6";
+        tr.innerHTML = `
+          <!-- Y軸 標籤 -->
+          <td class="w-8 text-right pr-3 font-mono text-slate-300 border-r border-slate-600/80 select-none">
+            ${i}
+          </td>
+          <!-- 數量 -->
+          <td class="w-12 text-right pr-3 pl-3 font-mono text-xs font-bold text-slate-200 select-none">
+            ${count}
+          </td>
+          <!-- 長條圖 -->
+          <td class="py-1 pl-1 w-full">
+            <div class="h-5 rounded-md transition-all duration-500 ease-out" 
+                 style="width: ${widthPct}%; background-color: ${color};">
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function renderOverview(levels) {
+      const totalLevels = levels.length;
+    
+      const totalAttempts = levels.reduce((sum, l) => {
+        const att = Number(l.attempts) || 0;
+        return sum + att;
+      }, 0);
+
+      const avgEnjoyment = (levels.reduce((acc, l) => acc + l.enjoyment, 0) / levels.length).toFixed(1);
+
+      const hardestLevel = levels.reduce((max, level) => {
+        return (level.rawTier > max.rawTier) ? level : max;
+      }, levels[0]);
+    
+      const hardestElem = document.getElementById('stat-hardest');
+      if (hardestLevel) {
+        hardestElem.innerHTML = `<a href="/detail.html?id=${hardestLevel.levelId}">${hardestLevel.name}</a>`
+      }
+
+      document.getElementById('total-attempts').textContent = totalAttempts.toLocaleString();
+      document.getElementById('stat-avg-enjoyment').innerText = `${avgEnjoyment}`;
+      document.getElementById('stat-total').innerText = levels.length;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadStats);
+  </script>
+
+</body>
+</html>

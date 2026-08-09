@@ -1,5 +1,15 @@
 [
   {
+    "levelId": 1,
+    "enjoyment": 8,
+    "attempts": 5000
+  },
+  {
+    "levelId": 2,
+    "enjoyment": 8,
+    "attempts": 3000
+  },
+  {
     "levelId": 106517747,
     "enjoyment": 10,
     "review": "被票到t3可能是這關會掉幀，\n但我沒遇到，所以感覺沒有到t3那麼難",
@@ -668,5 +678,42 @@
     "attempts": 534,
     "date": "2026-08-03",
     "videoUrl": "https://youtu.be/wgL1LQz_sAQ"
+  },
+  {
+    "levelId": 91021939,
+    "enjoyment": 8,
+    "date": "2026-08-04"
+  },
+  {
+    "levelId": 67050336,
+    "enjoyment": 8,
+    "date": "2026-08-04"
+  },
+  {
+    "levelId": 4284013,
+    "enjoyment": 8,
+    "attempts": 7359,
+    "date": "2026-08-05"
+  },
+  {
+    "levelId": 58558910,
+    "enjoyment": 9,
+    "date": "2026-08-09"
+  },
+  {
+    "levelId": 132322947,
+    "enjoyment": 9,
+    "date": "2026-08-09"
+  },
+  {
+    "levelId": 90579684,
+    "enjoyment": 7,
+    "date": "2026-08-09"
+  },
+  {
+    "levelId": 83431859,
+    "enjoyment": 6,
+    "attempts": 2984,
+    "date": "2026-08-10"
   }
 ]
