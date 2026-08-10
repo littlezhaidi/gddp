@@ -3,7 +3,7 @@ const fs = require('fs');
 async function buildData() {
   console.log('開始打包 GDDL 關卡資料...');
   
-  const rawData = fs.readFileSync('assets/levels.json', 'utf-8');
+  const rawData = fs.readFileSync('data/levels.json', 'utf-8');
   const levels = JSON.parse(rawData);
 
   const processedLevels = [];
@@ -18,8 +18,7 @@ async function buildData() {
       const meta = data.Meta || {};
 
       const demonType = (meta.Difficulty && meta.Difficulty !== 'Official') ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
-      const tier = Math.round(data.Rating || 0);
-      const rawTier = data.Rating || 0;
+      const tier = data.Rating || 0;
 
       let rarity = 'none';
       if (meta.Rarity == 1) rarity = 'feature';
@@ -34,7 +33,6 @@ async function buildData() {
         demonType,
         rarity,
         tier,
-        rawTier
       });
     } catch (err) {
       console.warn(`關卡 ${level.levelId} 抓取失敗：`, err);
@@ -45,14 +43,13 @@ async function buildData() {
         demonType: 'hard',
         rarity: 'none',
         tier: 0,
-        rawTier: 0
       });
     }
 
   }
 
   const sortedByTier = [...processedLevels].sort((a, b) => {
-    if (b.rawTier !== a.rawTier) return (b.rawTier || 0) - (a.rawTier || 0);
+    if (b.tier !== a.tier) return (b.tier || 0) - (a.tier || 0);
     return (b.enjoyment || 0) - (a.enjoyment || 0);
   });
 
@@ -92,7 +89,7 @@ async function buildData() {
       currentBoard.push(level);
 
       currentBoard.sort((a, b) => {
-        if (b.rawTier !== a.rawTier) return (b.rawTier || 0) - (a.rawTier || 0);
+        if (b.tier !== a.tier) return (b.tier || 0) - (a.tier || 0);
         return (b.enjoyment || 0) - (a.enjoyment || 0);
       });
 
@@ -116,11 +113,11 @@ async function buildData() {
 
     const finalLogs = [...generatedLogs.reverse()];
 
-    fs.writeFileSync('./changelogs.json', JSON.stringify(finalLogs, null, 2));
+    fs.writeFileSync('data/changelogs.json', JSON.stringify(finalLogs, null, 2));
     console.log(`已生成 ${generatedLogs.length} 筆更新日誌`);
   }
 
-  fs.writeFileSync('./levels-processed.json', JSON.stringify(finalLevels, null, 2));
+  fs.writeFileSync('data/levels-processed.json', JSON.stringify(finalLevels, null, 2));
   console.log('已生成 levels-processed.json');
 }
 

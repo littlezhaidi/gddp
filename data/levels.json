@@ -702,7 +702,7 @@
   },
   {
     "levelId": 132322947,
-    "enjoyment": 9,
+    "enjoyment": 8,
     "date": "2026-08-09"
   },
   {
@@ -713,7 +713,9 @@
   {
     "levelId": 83431859,
     "enjoyment": 6,
+    "review": "time spent: 3days, 6h30m playtime\n\n花了100台幣買了hololive dreams（讀作geometry dash），\n大家幫我看看是不是正版的",
     "attempts": 2984,
-    "date": "2026-08-10"
+    "date": "2026-08-10",
+    "videoUrl": "https://youtu.be/fqjwIK2-o-I"
   }
 ]

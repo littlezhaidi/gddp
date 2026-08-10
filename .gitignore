@@ -1,4 +1,4 @@
 .DS_Store
 ._*
-levels-processed.json
-changelogs.json
+data/levels-processed.json
+data/changelogs.json

@@ -16,15 +16,28 @@
 <body class="bg-slate-950 text-slate-100 min-h-screen pb-12">
 
     <!-- Home Page Button -->
-    <div class="max-w-4xl mx-auto px-4 pt-8">
-          <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
+    <div class="max-w-6xl mx-auto px-4 pt-6 md:pt-8">
+        <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
               <i class="fa-solid fa-arrow-left"></i> 返回關卡列表
-          </a>
+        </a>
     </div>
-  
-    <!-- Detail Container (Dynamic rendering via JS) -->
-    <main id="detail-container" class="max-w-4xl mx-auto px-4 mt-6">
-          <p class="text-center text-slate-500 py-12">載入關卡資訊中...</p>
+
+    <!-- Title -->
+    <main class="max-w-6xl mx-auto px-4 mt-6 space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex justify-between items-center">
+              <div>
+                  <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-wide flex items-center gap-3">
+                      <i class="fa-solid fa-clock-rotate-left text-violet-300"></i> 更新日誌
+                  </h1>
+                  <p class="text-slate-400 text-xs md:text-base mt-1">＊排名資料來自GDDL</p>
+              </div>
+        </div>
+        <!-- Changelog Container -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+            <div id="changelog-container" class="relative border-l-2 border-slate-800 ml-2 md:ml-4 pl-6 md:pl-8 space-y-8">
+                <!-- Dynamic rendering via JS -->
+            </div>
+        </div>
     </main>
 
     <!-- Footer Section -->
@@ -64,6 +77,6 @@
         </div>
     </footer>
 
-    <script type="module" src="js/detail.js"></script>
+    <script type="module" src="js/changelogs.js"></script>
 </body>
 </html>
