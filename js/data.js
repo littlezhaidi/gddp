@@ -103,3 +103,37 @@ export async function getLevelById(id) {
     const levels = await getLevels();
     return levels.find(l => String(l.levelId) === String(id)) || null;
 }
+
+export function initBackToTop() {
+    const btn = document.createElement('button');
+    btn.id = 'back-to-top';
+    btn.setAttribute('aria-label', '回到頂部');
+    
+    btn.className = `
+        fixed bottom-6 right-6 z-50 p-3.5 md:w-20 md:h-14 rounded-full  
+        bg-slate-700 hover:bg-slate-600 shadow-lg shadow-violet-600/15
+        transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none
+        focus:outline-none flex items-center justify-center cursor-pointer
+    `.replace(/\s+/g, ' ').trim();
+
+    btn.innerHTML = `<i class="fa-solid fa-arrow-up text-lg text-violet-400"></i>`;
+
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            btn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            btn.classList.add('opacity-100', 'translate-y-0');
+        } else {
+            btn.classList.remove('opacity-100', 'translate-y-0');
+            btn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}

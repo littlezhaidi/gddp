@@ -1,4 +1,4 @@
-import { getLevels, getThumbUrl, getTierStyle, getEnjoymentStyle } from './data.js';
+import { getLevels, getThumbUrl, getTierStyle, getEnjoymentStyle, initBackToTop } from './data.js';
 
 let currentSortOrder = true;
 let levels = [];
@@ -8,6 +8,7 @@ async function initIndexPage() {
     try {
         updateRecentLevel();
         handleFilterAndSort();
+        initBackToTop();
     } catch (err) {
         console.error("無法載入資料：", err);
         document.getElementById('cards-grid').innerHTML = 

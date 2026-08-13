@@ -1,3 +1,5 @@
+import { initBackToTop } from './data.js'
+
 async function renderChangelog() {
     const container = document.getElementById('changelog-container');
     try {
@@ -46,3 +48,4 @@ async function renderChangelog() {
 }
 
 renderChangelog();
+initBackToTop();

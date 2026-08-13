@@ -682,33 +682,50 @@
   {
     "levelId": 91021939,
     "enjoyment": 8,
-    "date": "2026-08-04"
+    "review": "free demon, 背景板好看",
+    "attempts": 72,
+    "date": "2026-08-04",
+    "videoUrl": "https://youtu.be/kmb6Nax_PPE"
   },
   {
     "levelId": 67050336,
     "enjoyment": 8,
-    "date": "2026-08-04"
+    "review": "free demon, 沒什麼特色, gp沒雷點",
+    "attempts": 143,
+    "date": "2026-08-04",
+    "videoUrl": "https://youtu.be/GJRF2QOpRek"
   },
   {
     "levelId": 4284013,
     "enjoyment": 8,
-    "attempts": 7359,
-    "date": "2026-08-05"
+    "review": "幾何衝刺萌新必玩關卡\ngp沒什麼大問題，enjoyment完全取決於你聽不聽得下去音樂",
+    "attempts": 8359,
+    "date": "2026-08-05",
+    "videoUrl": "https://youtu.be/6n7lzc-obo4"
   },
   {
     "levelId": 58558910,
     "enjoyment": 9,
-    "date": "2026-08-09"
+    "review": "在我打過的free demon裡面，算是ship比例很大的關卡了\n這歌有力氣",
+    "attempts": 66,
+    "date": "2026-08-09",
+    "videoUrl": "https://youtu.be/prjLntsZhxo"
   },
   {
     "levelId": 132322947,
     "enjoyment": 8,
-    "date": "2026-08-09"
+    "review": "好玩，但有點審美疲勞了",
+    "attempts": 177,
+    "date": "2026-08-09",
+    "videoUrl": "https://youtu.be/__YT7gJuUMA"
   },
   {
     "levelId": 90579684,
     "enjoyment": 7,
-    "date": "2026-08-09"
+    "review": "hexagun furce ahh decoration\ndaily quality, daily difficulty",
+    "attempts": "50",
+    "date": "2026-08-09",
+    "videoUrl": "https://youtu.be/xdgdLDgJWys"
   },
   {
     "levelId": 83431859,
@@ -717,5 +734,13 @@
     "attempts": 2984,
     "date": "2026-08-10",
     "videoUrl": "https://youtu.be/fqjwIK2-o-I"
+  },
+  {
+    "levelId": 3,
+    "enjoyment": 9,
+    "review": "沒秒殺有點可惜，但因為意義重大所以enjoyment還是給高",
+    "attempts": 993,
+    "date": "2026-08-11",
+    "videoUrl": "https://youtu.be/rHuJrRTOsyo"
   }
 ]
