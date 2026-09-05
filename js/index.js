@@ -26,7 +26,7 @@ function updateRecentLevel() {
 
     const recentElem = document.getElementById('recent-level');
     if (recentLevel) {
-        recentElem.href = `/detail.html?id=${recentLevel.levelId}`
+        recentElem.href = `/detail.html?id=${recentLevel.id}`
         recentElem.innerHTML = `<i class="fa-regular fa-calendar-check"></i> 最近通關: ${recentLevel.name}`
     }
 }
@@ -38,7 +38,7 @@ function handleFilterAndSort() {
     let filtered = levels.filter(level =>
         level.name.toLowerCase().includes(searchTerm) ||
         level.creator.toLowerCase().includes(searchTerm) ||
-        String(level.levelId).includes(searchTerm)
+        String(level.id).includes(searchTerm)
     );
 
     filtered.sort((a, b) => {
@@ -76,11 +76,11 @@ function renderCards(data) {
 
     data.forEach(level => {
         const cardHTML = `
-            <div onclick="location.href='detail.html?id=${level.levelId}'" class="bg-slate-900/90 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between card group">
+            <div onclick="location.href='detail.html?id=${level.id}'" class="bg-slate-900/90 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between card group">
 
                 <!-- Top Banner -->
                 <div class="relative w-full h-40 bg-slate-950 overflow-hidden">
-                    <img src="${getThumbUrl(level.levelId)}" 
+                    <img src="${getThumbUrl(level.id)}" 
                          alt="${level.name}" 
                          class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-black/50"></div>

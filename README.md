@@ -7,7 +7,7 @@
 gddp/
 ├── assets/                   # 圖片素材
 ├── data/                     # 靜態資源
-│   ├── levels-processed.json
+│   ├── data-processed.json
 │   └── changelogs.json
 │
 ├── js/                       

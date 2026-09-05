@@ -66,8 +66,8 @@ export function getEnjoymentStyle(score) {
     return `color: ${rgb};`;
 }
 
-export function getThumbUrl(levelId) {
-    const thumbId = SPECIAL_THUMB_IDS[levelId] ? SPECIAL_THUMB_IDS[levelId] : levelId;
+export function getThumbUrl(id) {
+    const thumbId = SPECIAL_THUMB_IDS[id] ? SPECIAL_THUMB_IDS[id] : id;
     return `https://levelthumbs.prevter.me/thumbnail/${thumbId}/high`;
 }
 
@@ -101,7 +101,7 @@ export async function getLevels() {
 
 export async function getLevelById(id) {
     const levels = await getLevels();
-    return levels.find(l => String(l.levelId) === String(id)) || null;
+    return levels.find(l => String(l.id) === String(id)) || null;
 }
 
 export function initBackToTop() {

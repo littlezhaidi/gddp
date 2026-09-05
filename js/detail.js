@@ -6,8 +6,8 @@ async function initDetailPage() {
     if (!container) return;
 
     const urlParams = new URLSearchParams(window.location.search);
-    const levelId = urlParams.get('id');
-    const level = await getLevelById(levelId);
+    const id = urlParams.get('id');
+    const level = await getLevelById(id);
 
     if (!level) {
         container.innerHTML = `<p class="text-center text-red-400">找不到此關卡資料</p>`;
@@ -51,7 +51,7 @@ async function initDetailPage() {
           </div>
         ` : `
           <img 
-            src="${getThumbUrl(level.levelId)}"
+            src="${getThumbUrl(level.id)}"
             alt="${level.name}">
           </img>
           <p class="text-slate-500 text-sm italic">此關卡無通關影片</p>
@@ -81,7 +81,7 @@ async function initDetailPage() {
         <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80">
           <h3 class="text-sm font-bold text-slate-400 tracking-wider mb-2">REVIEW / 心得</h3>
           <p class="text-slate-200 leading-relaxed whitespace-pre-line text-base mb-2">${level.review ? `${level.review}` : '（尚未更新）'}</p>
-          <a href="https://gdladder.com/level/${level.levelId}" 
+          <a href="https://gdladder.com/level/${level.id}" 
              class="text-sm font-bold text-slate-400 tracking-wider underline hover:text-violet-300"> 
             GDDL link
           </a>

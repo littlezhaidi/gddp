@@ -122,7 +122,7 @@ function renderOverview(levels) {
     
     const hardestElem = document.getElementById('stat-hardest');
     if (hardestLevel) {
-        hardestElem.innerHTML = `<a href="/detail.html?id=${hardestLevel.levelId}">${hardestLevel.name}</a>`
+        hardestElem.innerHTML = `<a href="/detail.html?id=${hardestLevel.id}">${hardestLevel.name}</a>`
     }
 
     document.getElementById('total-attempts').textContent = totalAttempts.toLocaleString();
