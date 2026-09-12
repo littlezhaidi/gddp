@@ -9,6 +9,11 @@ const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+async function main() {
+  	await buildData();
+  	await notifyDiscordNewLogs();
+}
+
 async function buildData() {
     console.log('開始打包 GDDL 關卡資料...');
 
@@ -170,5 +175,4 @@ async function notifyDiscordNewLogs() {
   	}
 }
 
-buildData();
-notifyDiscordNewLogs();
+main();
