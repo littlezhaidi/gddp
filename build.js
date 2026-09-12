@@ -170,5 +170,5 @@ async function notifyDiscordNewLogs() {
   	}
 }
 
-notifyDiscordNewLogs()
 buildData();
+notifyDiscordNewLogs();
