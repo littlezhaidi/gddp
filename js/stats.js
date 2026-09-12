@@ -1,4 +1,4 @@
-import { getLevels, getThumbUrl, getTierColor, getEnjoymentStyle } from './data.js';
+import { getLevels, getTierColor, getEnjoymentStyle } from './data.js';
 
 async function loadStats() {
     try {

@@ -1,21 +1,22 @@
-const fs = require('fs');;
+const fs = require('fs');
+require('dotenv').config();
+const { createClient } = require('@supabase/supabase-js')
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const { createClient } = require('@supabase/supabase-js')
-const SUPABASE_URL = 'https://bmddhyrnqdnymridndrq.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_fGtcV00ZRGnDkk2a7jVGiA_RGHAf1zm';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function buildData() {
     console.log('開始打包 GDDL 關卡資料...');
-    
-    const { data, error } = await supabase
-        .from('levels')
-        .select()
-        .order('date', { ascending: true });
-  
-  
-    const processedLevels = [];
+
+	const { data, error } = await supabase
+	    .from('levels')
+	    .select()
+	    .order('date', { ascending: true });
+	    const processedLevels = [];
   
     for (let i = 0; i < data.length; i++) {
       	const level = data[i];
@@ -25,6 +26,9 @@ async function buildData() {
     		const res = await fetch(`https://gdladder.com/api/levels/${level.id}`);
     		const data = res.ok ? await res.json() : {};
     		const meta = data.Meta || {};
+
+			const submission = await fetch(`https://gdladder.com/api/user/35115/submissions/${level.id}`);
+			const vote = submission.ok ? await submission.json() : {};
 
     		const demonType = (meta.Difficulty && meta.Difficulty !== 'Official') ? meta.Difficulty.split(' ')[0].toLowerCase() : 'hard';
     		const tier = data.Rating || 0;
@@ -42,6 +46,7 @@ async function buildData() {
     		  	demonType,
     		  	rarity,
     		  	tier,
+				vote: vote.Rating,
     		});
       	} catch (err) {
       	  	console.warn(`關卡 ${level.id} 抓取失敗：`, err);
@@ -54,7 +59,7 @@ async function buildData() {
       	  	  	tier: 0,
       	  	});
       	}
-      	await sleep(600); //gddl rate limit
+      	await sleep(1200); //gddl rate limit
     }
   
     const sortedByTier = [...processedLevels].sort((a, b) => {
@@ -125,9 +130,45 @@ async function buildData() {
       	fs.writeFileSync('data/changelogs.json', JSON.stringify(finalLogs, null, 2));
       	console.log(`已生成 ${generatedLogs.length} 筆更新日誌`);
     }
-  
+
     fs.writeFileSync('data/levels-processed.json', JSON.stringify(finalLevels, null, 2));
     console.log('已生成 levels-processed.json');
 }
 
+function formatDiscordMessage(log) {
+  	let relativePlacement = '';
+  	if (log.aboveName && log.belowName) relativePlacement = `, above ${log.aboveName} and below ${log.belowName}`;
+  	else if (log.belowName) relativePlacement = `, above ${log.belowName}`;
+  	else if (log.aboveName) relativePlacement = `, below ${log.aboveName}`;
+  	
+	return `${log.targetName} was placed at #${log.rank}${relativePlacement}`;
+}
+
+async function notifyDiscordNewLogs() {
+
+  	const changelogs = JSON.parse(fs.readFileSync('data/changelogs.json', 'utf-8'));
+
+  	const todayStr = new Date().toISOString().split('T')[0];
+  	const newLogs = changelogs.filter(log => log.date === todayStr);
+  	if (newLogs.length === 0) {
+  	  	console.log('無新增資料');
+  	  	return;
+  	}
+
+  	const messageContent = newLogs.map(log => formatDiscordMessage(log)).join('\n\n');
+  	try {
+  	  	await fetch(DISCORD_WEBHOOK_URL, {
+  	  	  	method: 'POST',
+  	  	  	headers: { 'Content-Type': 'application/json' },
+  	  	  	body: JSON.stringify({
+  	  	  	  	content: messageContent
+  	  	  	})
+  	  	});
+
+  	} catch (err) {
+  	  	console.error('an error occurred', err.message);
+  	}
+}
+
+notifyDiscordNewLogs()
 buildData();

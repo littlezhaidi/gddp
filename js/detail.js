@@ -32,6 +32,7 @@ async function initDetailPage() {
             <p class="text-slate-400 text-sm mt-1">
               <span class="text-slate-200 font-semibold">#${level.rank}</span>, Created by <span class="text-slate-200 font-semibold">${level.creator}</span>
             </p>
+            <p class="text-slate-400 text-sm mt-1">clear at ${level.date || 'unknown'}</p>
           </div>
 
           <div class="flex items-center gap-2 px-3 py-1.5 shrink-0">
@@ -58,10 +59,14 @@ async function initDetailPage() {
         `}
 
         <!-- Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-950/60 p-4 rounded-xl border border-slate-800 text-center">
           <div>
             <span class="block text-xs text-slate-500 font-bold uppercase">Difficulty</span>
             <span class="text-xl font-bold text-slate-200 px-1.5 py-0.5 md:px-3 rounded inline-block border" style="${getTierStyle(level.tier)}">tier ${Math.round(level.tier)}</span>
+          </div>
+          <div>
+            <span class="block text-xs text-slate-500 font-bold uppercase">Personal opinion</span>
+            <span class="text-xl font-bold text-slate-200 ${level.vote ? `px-1.5 py-0.5 md:px-3 rounded inline-block border` : ``}" style="${level.vote ? getTierStyle(level.vote) : ` `}">${level.vote ? `tier ${level.vote}` : `gddl審核中`}</span>
           </div>
           <div>
             <span class="block text-xs text-slate-500 font-bold uppercase">Enjoyment</span>
@@ -70,10 +75,6 @@ async function initDetailPage() {
           <div>
             <span class="block text-xs text-slate-500 font-bold uppercase">Attempts</span>
             <span class="text-xl font-bold text-slate-200">${level.attempts ? level.attempts.toLocaleString() : '-'}</span>
-          </div>
-          <div>
-            <span class="block text-xs text-slate-500 font-bold uppercase">Clear Date</span>
-            <span class="text:lg md:text-xl font-bold text-slate-200">${level.date || '未知'}</span>
           </div>
         </div>
 
