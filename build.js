@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
@@ -10,6 +11,10 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function main() {
+	const dataDir = path.join(__dirname, 'data');
+	if (!fs.existsSync(dataDir)) {
+		fs.mkdirSync(dataDir, { recursive: true });
+	}
   	await buildData();
   	await notifyDiscordNewLogs();
 }

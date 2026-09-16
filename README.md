@@ -1,13 +1,12 @@
 ## littlezhaidi demonlist
 個人用途，因為懶得存影片，用這種方式紀錄我通關的demon  
-我對js一竅不通所以給AI寫code  
+vibe coding警告
 
 ### 檔案結構
 ```
 gddp/
 ├── assets/                   # 圖片素材
 ├── data/                     # 靜態資源
-│   ├── data-processed.json
 │   └── changelogs.json
 │
 ├── js/                       
@@ -17,11 +16,11 @@ gddp/
 │   ├── about.js              
 │   └── changelog.js          
 │
-├── index.html                # 首頁
-├── detail.html               # 關卡詳情
-├── stats.html                # 統計
-├── changelog.html            # 更新日誌
-├── about.html                # 網站詳情
+├── index.html                # 各頁面
+├── detail.html               
+├── stats.html                
+├── changelog.html            
+├── about.html                
 │
 ├── build.js                  # 打包腳本
 ├── README.md                 # ur here
@@ -29,8 +28,6 @@ gddp/
 ```  
 
 ### to be added (in case i forgot these ideas)
-main list, extended list, legacy list  
-`/api/user/{userID}/submissions` or `/api/user/{userID}/submissions/{levelID}`  
-improve workflow
+main list, extended list, legacy list
 
 
