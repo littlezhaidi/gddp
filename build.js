@@ -1,6 +1,6 @@
 const fs = require('fs');
 require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js')
+const { createClient } = require('@supabase/supabase-js');
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -151,16 +151,20 @@ function formatDiscordMessage(log) {
 
 async function notifyDiscordNewLogs() {
 
-  	const changelogs = JSON.parse(fs.readFileSync('data/changelogs.json', 'utf-8'));
+	const LIVE_CHANGELOG_URL = `https://gddp.littlezhaidi.me/data/changelogs.json`;
+	const res = await fetch(LIVE_CHANGELOG_URL);
+  	const current = JSON.parse(fs.readFileSync('data/changelogs.json', 'utf-8'));
+	const old = await res.json();
+	const oldIds = new Set (old.map(item => item.targetId));
 
-  	const todayStr = new Date().toISOString().split('T')[0];
-  	const newLogs = changelogs.filter(log => log.date === todayStr);
+  	const newLogs = current.filter (item => !oldIds.has(item.targetId));
   	if (newLogs.length === 0) {
   	  	console.log('無新增資料');
   	  	return;
   	}
 
   	const messageContent = newLogs.map(log => formatDiscordMessage(log)).join('\n\n');
+	//console.log(messageContent)
   	try {
   	  	await fetch(DISCORD_WEBHOOK_URL, {
   	  	  	method: 'POST',

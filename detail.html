@@ -17,14 +17,16 @@
 
     <!-- Home Page Button -->
     <div class="max-w-4xl mx-auto px-4 pt-8">
-          <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
-              <i class="fa-solid fa-arrow-left"></i> 返回關卡列表
-          </a>
+        <a href="/" 
+           onclick="if (window.history.length > 1) { history.back(); return false; }" 
+           class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> 返回上一頁
+        </a>
     </div>
   
     <!-- Detail Container (Dynamic rendering via JS) -->
     <main id="detail-container" class="max-w-4xl mx-auto px-4 mt-6">
-          <p class="text-center text-slate-500 py-12">載入關卡資訊中...</p>
+            <p class="text-center text-slate-500 py-12">載入關卡資訊中...</p>
     </main>
 
     <!-- Footer Section -->

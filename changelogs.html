@@ -17,8 +17,10 @@
 
     <!-- Home Page Button -->
     <div class="max-w-6xl mx-auto px-4 pt-6 md:pt-8">
-        <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
-              <i class="fa-solid fa-arrow-left"></i> 返回關卡列表
+        <a href="/" 
+           onclick="if (window.history.length > 1) { history.back(); return false; }" 
+           class="inline-flex items-center gap-2 text-slate-400 hover:text-violet-300 transition-colors">
+            <i class="fa-solid fa-arrow-left"></i> 返回上一頁
         </a>
     </div>
 
@@ -26,10 +28,10 @@
     <main class="max-w-6xl mx-auto px-4 mt-6 space-y-6">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex justify-between items-center">
               <div>
-                  <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-wide flex items-center gap-3">
-                      <i class="fa-solid fa-clock-rotate-left text-violet-300"></i> 更新日誌
-                  </h1>
-                  <p class="text-slate-400 text-xs md:text-base mt-1">＊排名資料來自GDDL</p>
+                    <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-wide flex items-center gap-3">
+                        <i class="fa-solid fa-clock-rotate-left text-violet-300"></i> 更新日誌
+                    </h1>
+                    <p class="text-slate-400 text-xs md:text-base mt-1">＊排名資料來自GDDL</p>
               </div>
         </div>
         <!-- Changelog Container -->
