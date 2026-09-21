@@ -13,7 +13,8 @@ async function renderChangelog() {
         }
 
         container.innerHTML = logs.map((log, index) => {
-            const isLatest = index === 0;
+            const latestDate = logs[0].date;
+            const isLatest = log.date === latestDate;
             
             let placementText = '';
             const aboveText = `<a href="detail.html?id=${log.aboveId}" class="font-semibold text-violet-200 hover:underline transition-colors">${log.aboveName}</a>`;
