@@ -72,15 +72,15 @@ export function getThumbUrl(id) {
 }
 
 function enrichLevelData(level) {
-  const demonType = level.demonType || 'hard';
-  const hasRarity = Boolean(level.rarity && level.rarity !== 'none');
-
-  return {
-    ...level,
-    demonLogoUrl: `https://gdladder.com/images/demon_logos/${demonType}_128.webp`,
-    hasRarity,
-    rarityUrl: hasRarity ? `https://gdladder.com/images/rarity/${level.rarity}_128.webp` : ''
-  };
+    const demonType = level.demonType || 'hard';
+    const hasRarity = Boolean(level.rarity && level.rarity !== 'none');
+    
+    return {
+      ...level,
+      demonLogoUrl: `https://gdladder.com/images/demon_logos/${demonType}_128.webp`,
+      hasRarity,
+      rarityUrl: hasRarity ? `https://gdladder.com/images/rarity/${level.rarity}_128.webp` : ''
+    };
 }
 
 export async function getLevels() {

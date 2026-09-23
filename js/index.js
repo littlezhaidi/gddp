@@ -164,8 +164,16 @@ function renderCards(data) {
                     </div>
 
                     <!-- detail -->
-                    <div class="relative z-10 flex items-center gap-4 min-w-0">
-                        <span class="text-xl font-black font-mono text-violet-400 w-12 text-center shrink-0 drop-shadow">#${level.rank}</span>
+                    <div class="relative z-10 flex items-center md:gap-4 gap-2 min-w-0">
+
+                        <div class="relative w-12 h-12 hidden md:flex items-center justify-center drop-shadow-lg">
+                            ${level.hasRarity ? `
+                              <img src="${level.rarityUrl}" alt="${level.rarity}" class="absolute inset-0 w-full h-full object-contain pointer-events-none scale-110">
+                            ` : ''}
+                            <img src="${level.demonLogoUrl}" alt="${level.demonType}" class="absolute inset-0 w-full h-full object-contain scale-110">
+                        </div>
+
+                        <span class="text-lg font-bold text-violet-400 w-12 text-center shrink-0 drop-shadow">#${level.rank}</span>
 
                         <div class="truncate">
                             <h3 class="text-base font-bold text-white truncate group-hover:text-violet-300 transition-colors drop-shadow-md">${level.name}</h3>
@@ -173,30 +181,24 @@ function renderCards(data) {
                         </div>
                     </div>
 
-                    <div class="relative z-10 flex items-center gap-3 shrink-0">
+                    <div class="relative z-10 flex items-center gap-2 shrink-0">
+
                         <!-- Difficulty Badge -->
-                        <span class="text-xs font-black px-2.5 py-1 rounded border shadow-sm backdrop-blur-md" style="${getTierStyle(Math.round(level.tier))}">
-                            tier ${Math.round(level.tier)}
-                        </span>
+                        <div class="text-xs font-black px-2.5 py-1 rounded border shadow-sm backdrop-blur-md" style="${getTierStyle(Math.round(level.tier))}">
+                            <span class="md:hidden">t${Math.round(level.tier)}</span>
+                            <span class="hidden md:inline">tier ${Math.round(level.tier)}</span>
+                        </div>
 
                         <!-- Enjoyment Badge -->
-                        <span class="text-xs font-black px-2.5 py-1 rounded bg-slate-950/80 border border-slate-800/80 shadow-sm backdrop-blur-md" style="${getEnjoymentStyle(level.enjoyment)}">
-                            ${Math.round(level.enjoyment)}/10
-                        </span>
+                        <div class="text-xs font-black px-2.5 py-1 rounded bg-slate-950/80 border border-slate-800/80 shadow-sm backdrop-blur-md" style="${getEnjoymentStyle(level.enjoyment)}">
+                            <span class="md:hidden">e${Math.round(level.enjoyment)}</span>
+                            <span class="hidden md:inline">${Math.round(level.enjoyment)}/10</span> 
+                        </div>
 
                         <!-- Clear Date -->
-                        <span class="text-xs text-slate-300 font-mono hidden lg:inline-block w-24 text-right drop-shadow">
+                        <span class="text-xs text-slate-300 font-mono hidden md:inline-block w-24 text-right drop-shadow">
                             ${level.date || '未知日期'}
                         </span>
-
-                        <!-- Video Icon -->
-                        ${(level.videoUrl && level.videoUrl.trim() !== '') ? `
-                            <span class="text-red-400 text-xs bg-red-500/20 backdrop-blur-md p-2 rounded-lg border border-red-500/30 hover:bg-red-500/40 transition-colors">
-                                <i class="fa-brands fa-youtube"></i>
-                            </span>
-                        ` : `
-                            <span class="w-8"></span>
-                        `}
                     </div>
                 </div>
             `;
